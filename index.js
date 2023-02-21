@@ -73,6 +73,11 @@ function searchUser(input) {
       filteredUsers.push(users[i]);
     }
   }
+
+  if (filteredUsers.length === 0) {
+    return alert(`No match users from your keywords ${input}`);
+  }
+
   return filteredUsers;
 }
 
@@ -106,8 +111,8 @@ submitButton.addEventListener("click", function onSubmitClicked(event) {
 
   const input = inputField.value.trim().toLowerCase();
   searchUser(input);
-  renderUserList(filteredUsers);
-  renderPaginator(filteredUsers);
+  renderUserList(getUsersByPage(1));
+  renderPaginator(filteredUsers.length);
 });
 
 dataPanel.addEventListener("click", function onMoreButtonClicked(event) {
