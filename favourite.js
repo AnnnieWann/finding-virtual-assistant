@@ -34,23 +34,31 @@ function renderUserList(list) {
 }
 
 function renderUserModal(id) {
-  if (!id) return;
   const name = document.querySelector("#user-name");
   const image = document.querySelector("#user-image");
   const info = document.querySelector("#user-info");
 
-  name.textContent = "";
-  image.src = "";
-  info.textContent = "";
+  axios
+    .get(INDEX_URL)
+    .then(function (response) {
+      users = response.data.results;
 
-  name.innerText = users[id].name;
-  image.src = users[id].avatar;
-  info.innerHTML = `                 
-    <p>Email: ${users[id].email}</p>
-    <p>Gender: ${users[id].gender}</p>
-    <p>Age: ${users[id].age}</p>
-    <p>Region: ${users[id].region}</p>
-  `;
+      name.textContent = "";
+      image.src = "";
+      info.textContent = "";
+
+      name.innerText = users[id].name;
+      image.src = users[id].avatar;
+      info.innerHTML = `                 
+      <p>Email: ${users[id].email}</p>
+      <p>Gender: ${users[id].gender}</p>
+      <p>Age: ${users[id].age}</p>
+      <p>Region: ${users[id].region}</p>
+    `;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function removeFromFavourite(id) {
