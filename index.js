@@ -26,7 +26,7 @@ function renderUserList(list) {
             <p class="card-text">${user.name}</p>
         </div>
         <button type="button" class="btn btn-sm btn-outline-info mb-2 more-button" data-toggle="modal" data-target="#user-modal" data-id=${user.id} >More</button>
-        <button type="button" class="btn btn-sm btn-outline-info add-to-favourite">
+        <button type="button" class="btn btn-sm btn-outline-info btn-add-favourite" data-id=${user.id}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
           </svg>
@@ -81,6 +81,18 @@ function renderPaginator(list) {
   paginator.innerHTML = HTMLContent;
 }
 
+function addToFavourite(id) {
+  const favouriteList =
+    JSON.parse(localStorage.getItem("favouriteUsers")) || [];
+  const user = users.find((user) => user.id === id);
+
+  if (favouriteList.some((user) => user.id === id)) {
+    return alert("The user is already in favourite list");
+  }
+  favouriteList.push(user);
+  localStorage.setItem("favouriteUsers", JSON.stringify(favouriteList));
+}
+
 submitButton.addEventListener("click", function onSubmitClicked(event) {
   event.preventDefault();
 
@@ -91,8 +103,13 @@ submitButton.addEventListener("click", function onSubmitClicked(event) {
 });
 
 dataPanel.addEventListener("click", function onMoreButtonClicked(event) {
-  if (event.target.classList.contains("more-button")) {
-    renderUserModal(event.target.dataset.id - 1);
+  const target = event.target;
+  const id = target.dataset.id;
+
+  if (target.classList.contains("more-button")) {
+    renderUserModal(id - 1);
+  } else if (target.matches(".btn-add-favourite")) {
+    addToFavourite(Number(id));
   }
 });
 
