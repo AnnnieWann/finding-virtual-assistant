@@ -4,8 +4,6 @@ const NUM_PER_PAGE = 30;
 let users = JSON.parse(localStorage.getItem("favouriteUsers")) || [];
 const filteredUsers = [];
 
-console.log(users);
-
 const dataPanel = document.querySelector(".data-panel");
 const paginator = document.querySelector(".pagination");
 
@@ -55,6 +53,13 @@ function renderUserModal(id) {
   `;
 }
 
+function removeFromFavourite(id) {
+  const userIndex = users.findIndex((user) => user.id === id);
+  users.splice(userIndex, 1);
+  localStorage.setItem("favouriteUsers", JSON.stringify(users));
+  renderUserList(users);
+}
+
 function renderPaginator(list) {
   const data = filteredUsers.length > 0 ? filteredUsers : users;
   let numOfPage = Math.ceil(data.length / NUM_PER_PAGE);
@@ -74,13 +79,13 @@ dataPanel.addEventListener("click", function onMoreButtonClicked(event) {
 
   if (target.classList.contains("more-button")) {
     renderUserModal(id - 1);
-  } else if (target.matches(".btn-add-favourite")) {
-    addToFavourite(Number(id));
+  } else if (target.matches(".btn-remove-favourite")) {
+    removeFromFavourite(Number(id));
   }
 });
 
 paginator.addEventListener("click", function onPageClicked(event) {
-  renderUserList(getUsersByPage(event.target.dataset.id));
+  renderUserList(getUsersByPage(Number(event.target.dataset.id)));
 });
 
 renderUserList(users);

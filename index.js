@@ -96,7 +96,7 @@ function addToFavourite(id) {
 submitButton.addEventListener("click", function onSubmitClicked(event) {
   event.preventDefault();
 
-  const input = inputField.value.toLowerCase();
+  const input = inputField.value.trim().toLowerCase();
   searchUser(input);
   renderUserList(filteredUsers);
   renderPaginator(filteredUsers);
