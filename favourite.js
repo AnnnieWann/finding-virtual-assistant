@@ -23,8 +23,8 @@ function renderUserList(list) {
         <div class="card-body">
             <p class="card-text">${user.name}</p>
         </div>
-        <button type="button" class="btn btn-sm btn-outline-info mb-2 more-button" data-toggle="modal" data-target="#user-modal" data-id=${user.id} >More</button>
-        <button type="button" class="btn btn-sm btn-outline-info btn-remove-favourite" data-id=${user.id}>x
+        <button type="button" class="btn btn-sm btn-outline-light mb-2 more-button" data-toggle="modal" data-target="#user-modal" data-id=${user.id} >More</button>
+        <button type="button" class="btn btn-sm btn-outline-light btn-remove-favourite" data-id=${user.id}>x
         </button>
       </div>
     `;
