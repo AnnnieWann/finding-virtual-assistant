@@ -21,11 +21,11 @@ function renderUserList(list) {
       <div class="card col-sm-2 m-3" style="width: 18rem;">
         <img class="card-img-top" src="${user.avatar}">
         <div class="card-body">
-            <p class="card-text">${user.name}</p>
+          <p class="card-text">${user.name} ${user.surname}</p>
+          <button type="button" class="btn btn-sm btn-outline-light more-button mx-2" data-toggle="modal" data-target="#user-modal" data-id=${user.id} >More</button>
+          <button type="button" class="btn btn-sm btn-outline-light btn-remove-favourite" data-id=${user.id}>x
+          </button>
         </div>
-        <button type="button" class="btn btn-sm btn-outline-light mb-2 more-button" data-toggle="modal" data-target="#user-modal" data-id=${user.id} >More</button>
-        <button type="button" class="btn btn-sm btn-outline-light btn-remove-favourite" data-id=${user.id}>x
-        </button>
       </div>
     `;
   });
